@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>Posts</title>
+    <div class="container mt-5">
+        <h2 style="margin-top: 100px; margin-bottom: 30px">Post List</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for post in posts %}
+            <div class="col mb-3">
+                <div class="card h-80" style="border-radius: 15px;">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" style="border-radius: 15px 15px 0px 0px; height: 300px">
+                    {% endif %}
+                    <a style="text-decoration: none;
+                            color: black !important
+                            font-family: Inter; font-weight: 500; color: black; font-size: 20px; margin: 10px"
+                       href="{% url 'post_detail' post.id %}">
+                        {{ post.title }}</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

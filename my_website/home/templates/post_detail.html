@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>Post Detail</title>
+    <div class="container mt-5 mb-5">
+    <h1 style="margin-top: 100px">{{ post.title }}</h1>
+    <div style="text-align: justify">
+        {{ post.body|safe }}
+    </div>
+    <a style="text-decoration: none;
+    font-weight: bold; color: black !important;
+    font-family: Inter; font-size: 20px; padding: 10px;
+    border: 1px solid black; border-radius: 5px" href="{% url 'post' %}">
+       Back to List
+    </a>
+</div>
+{% endblock %}

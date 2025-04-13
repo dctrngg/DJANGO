@@ -1,0 +1,155 @@
+.primary-backgroundcolor {
+    background-color: grey;
+}
+
+.primary-textcolor {
+    color: white;
+}
+
+.descriptionElement {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+
+
+.thumbnail {
+    position: relative;
+}
+
+.caption {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+}
+
+.overlay-dark {
+    background-color: rgba(black, 0.9);
+}
+
+span {
+    font-size: 25px;
+    font-family: Inter;
+}
+
+p {
+    font-size: 25px;
+    font-family: Inter;
+}
+
+a, span, th, tr {
+    font-family: Inter !important;
+}
+
+h2 {
+    overflow: hidden;
+    text-align: center;
+    font-family: Inter;
+}
+
+h3 {
+    text-align: center;
+    font-family: Inter !important;
+}
+
+h2:before,
+h2:after {
+    background-color: gray;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    border-radius: 5px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+h2:before {
+    right: 0.5rem;
+    margin-left: -50%;
+}
+
+h2:after {
+    left: 0.5rem;
+    margin-right: -50%;
+}
+
+header {
+  position: relative;
+  background-color: black;
+  height: 700px;
+  width: 100%;
+  overflow: hidden;
+}
+
+header video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+  position: relative;
+  z-index: 2;
+}
+
+header .overlay1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+/* Media Query for devices withi coarse pointers and no hover functionality */
+
+/* This will use a fallback image instead of a video for devices that commonly do not support the HTML5 video element */
+
+@media (pointer: coarse) and (hover: none) {
+  header {
+    background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+  }
+
+  header video {
+    display: none;
+  }
+}
+
+.main-image {
+    width: auto;
+    height: 400px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+}
+.thumbnail-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.thumbnail-list img {
+    width: 120px;
+    border-radius: 5px;
+    height: auto;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.thumbnail-list img.selected {
+    border-color: #3498db;
+}

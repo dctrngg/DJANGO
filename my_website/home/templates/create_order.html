@@ -1,0 +1,17 @@
+<form method="POST">
+    {% csrf_token %}
+    <label for="address_line_1">Địa chỉ 1:</label>
+    <input type="text" name="address_line_1" required>
+
+    <label for="address_line_2">Địa chỉ 2:</label>
+    <input type="text" name="address_line_2">
+
+    <label for="city">Thành phố:</label>
+    <input type="text" name="city" required>
+
+    <label for="state">Tỉnh/Thành phố:</label>
+    <input type="text" name="state" required>
+
+
+    <button type="submit">Xác nhận đơn hàng</button>
+</form>

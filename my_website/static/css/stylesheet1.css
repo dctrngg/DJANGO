@@ -1,0 +1,115 @@
+.image-container {
+    position: relative; /* Để có thể định vị chữ lên ảnh */
+}
+
+.image-container img {
+    width: 100%; /* Đảm bảo ảnh vừa với div */
+    height: auto; /* Đảm bảo tỷ lệ khung hình không bị thay đổi */
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+}
+
+/* .image-container p {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    color: #fff; 
+    font-size: 40px; 
+    background: rgba(0, 0, 0, 0.7); 
+    padding: 10px 20px; 
+    border-radius: 15px;
+}*/
+
+.image-container {
+    position: relative;
+    display: flex;
+    padding: 20px; /* Tạo khoảng cách với phần văn bản */
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.black-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ trong suốt 50% */
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-text {
+    position: relative;
+    font-size: 100px;
+    top: 50%; /* Đặt phần trên của dòng chữ ở giữa màn hình */
+    left: 50%; /* Đặt phần trái của dòng chữ ở giữa màn hình */
+    transform: translate(-50%, -50%); /* Để dòng chữ nằm chính giữa màn hình */
+    text-align: center;
+    color: white;
+}
+
+/* Thiết lập kiểu cho footer */
+footer {
+    background-color: gainsboro;
+    color: black;
+}
+
+/* Thiết lập kiểu cho phần nội dung trong footer */
+.footer-content {
+    padding: 20px;
+}
+
+.footer-contact {
+    text-align: left;
+    padding: 20px;
+}
+
+/* Thiết lập kiểu cho thông tin liên hệ */
+.footer-contact h2 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: Inter;
+}
+
+.footer-contact p {
+    font-size: 20px;
+    color: black;
+}
+
+.footer-contact span {
+    font-size: 20px;
+    color: black;
+}
+
+
+
+/* Thiết lập kiểu cho phần footer-bottom */
+.footer-bottom {
+    background-color: #222;
+    padding-top: 2px;
+    padding-bottom: 0.1px;
+}
+
+.footer-bottom p {
+    font-size: 20px;
+    color: #fff;
+}
+
+.image-contain {
+    object-fit: cover;
+}
+
+.image-item {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.text-item {
+    text-align: center;
+    font-size: 20px;
+}
