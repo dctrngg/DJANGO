@@ -193,14 +193,16 @@ def order_success(request, order_id):
 
 #  -------------------------------
 
-from django.core.mail import send_mail
 import logging
 
 logger = logging.getLogger(__name__)
 
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+
 def send_confirmation_email(email, cart, order_details):
-    # Tạo chuỗi chi tiết giỏ hàng
-    cart_details = ""
+    # Tạo phần nội dung cho từng sản phẩm
+    order_items_html = ""
     total_price = 0
 
     for product_id, item in cart.items():
@@ -208,26 +210,76 @@ def send_confirmation_email(email, cart, order_details):
         quantity = item['quantity']
         price = item['price']
         total_item_price = price * quantity
-        cart_details += f"Sản phẩm: {product_name}\nSố lượng: {quantity}\nGiá: {price} VND\nTổng: {total_item_price} VND\n\n"
         total_price += total_item_price
 
-    # Thêm tổng giá trị đơn hàng vào chi tiết
-    cart_details += f"Tổng giá trị đơn hàng: {total_price} VND\n"
-    cart_details += f"Phí vận chuyển: {order_details['shipping_cost']} VND\n"
-    cart_details += f"Tổng thanh toán: {total_price + order_details['shipping_cost']} VND"
+        order_items_html += f"""
+        <tr>
+            <td style="padding: 10px;">{product_name}</td>
+            <td style="padding: 10px;">{quantity}</td>
+            <td style="padding: 10px;">{price:,} VND</td>
+            <td style="padding: 10px;">{total_item_price:,} VND</td>
+        </tr>
+        """
 
-    # Soạn thông điệp
-    subject = 'Xác nhận đơn hàng'
-    message = f"Cảm ơn bạn đã đặt hàng! Chi tiết giỏ hàng:\n\n{cart_details}"
+    shipping_cost = order_details.get('shipping_cost', 0)
+    total_payment = total_price + shipping_cost
+    tracking_url = order_details.get('tracking_url', '#')
+
+    # HTML template email
+    html_content = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0;">
+        <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+            <div style="background-color: #2c3e50; padding: 20px; text-align: center;">
+                <img src="https://yourstore.com/logo.png" alt="Điện thoại XYZ" style="max-height: 50px;" />
+            </div>
+            <div style="padding: 20px;">
+                <h2 style="color: #333;">Cảm ơn bạn đã đặt hàng tại <span style="color: #2980b9;">Điện thoại XYZ</span>!</h2>
+                <p style="color: #555;">Chúng tôi đã nhận được đơn hàng của bạn. Dưới đây là thông tin chi tiết:</p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr style="background-color: #ecf0f1; text-align: left;">
+                            <th style="padding: 10px;">Sản phẩm</th>
+                            <th style="padding: 10px;">Số lượng</th>
+                            <th style="padding: 10px;">Giá</th>
+                            <th style="padding: 10px;">Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {order_items_html}
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px; font-size: 16px; color: #333;">
+                    <p><strong>Tổng giá trị đơn hàng:</strong> {total_price:,} VND</p>
+                    <p><strong>Phí vận chuyển:</strong> {shipping_cost:,} VND</p>
+                    <p style="font-size: 18px;"><strong>Tổng thanh toán:</strong> <span style="color: #e74c3c;">{total_payment:,} VND</span></p>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="{tracking_url}" style="background-color: #27ae60; color: white; padding: 12px 25px; text-decoration: none; border-radius: 4px;">Theo dõi đơn hàng</a>
+                </div>
+                <div style="margin-top: 30px; color: #999; font-size: 12px; text-align: center;">
+                    <p>Điện thoại XYZ - Luôn đồng hành cùng bạn</p>
+                    <p>Website: <a href="https://yourstore.com" style="color: #2980b9;">yourstore.com</a></p>
+                    <p>Hotline: 0909 000 111</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
+    # Plain text fallback
+    text_content = strip_tags(html_content)
 
     try:
-        send_mail(
-            subject,
-            message,
-            'ductrungnguyen30@gmail.com',  # Địa chỉ email gửi
-            [email],
-            fail_silently=False,
+        msg = EmailMultiAlternatives(
+            subject='Xác nhận đơn hàng – Điện thoại XYZ',
+            body=text_content,
+            from_email='ductrungnguyen30@gmail.com',
+            to=[email]
         )
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
         logger.info(f'Email đã được gửi đến: {email}')
     except Exception as e:
         logger.error(f'Không thể gửi email đến {email}: {e}')
