@@ -5,7 +5,7 @@ from .views.signup import Signup
 from .views.login import Login, logout
 from .views.home import Detail, Index
 from .views.post import post_detail, post_list, video, aboutus, cart
-from .views.store import store, search, product_list, cart_view, add_to_cart, remove_from_cart, update_cart_quantity, create_order, order_success
+from .views.store import store, search, product_list, cart_view, add_to_cart, remove_from_cart, update_cart_quantity, create_order, order_success, create_checkout_session,success,cancel
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -43,6 +43,12 @@ urlpatterns = [
     # Admin and Social Auth URLs
     path('admin/', admin.site.urls),
     path('auth/', include('social_django.urls', namespace='social')),  # <<<<< Quan trọng: phải có namespace='social'
+
+
+    path('pay/',create_checkout_session, name='create_checkout_session'),
+    path('success/',success, name='success'),
+    path('cancel/', cancel, name='cancel'),
+  
 ]
 
 # Static and media files (nếu cần)

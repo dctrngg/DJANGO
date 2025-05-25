@@ -118,6 +118,8 @@ def calculate_shipping_cost(cart_total, address):
             return 50000  
         
 # --------------------------------------------------
+
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 
@@ -231,7 +233,7 @@ def send_confirmation_email(email, cart, order_details):
     <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0;">
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
             <div style="background-color: #2c3e50; padding: 20px; text-align: center;">
-                <img src="https://yourstore.com/logo.png" alt="Điện thoại XYZ" style="max-height: 50px;" />
+                <img src="https://i.ibb.co/HD0DRyW0/image.jpg" alt="Điện thoại XYZ" style="max-height: 50px;" />
             </div>
             <div style="padding: 20px;">
                 <h2 style="color: #333;">Cảm ơn bạn đã đặt hàng tại <span style="color: #2980b9;">Điện thoại XYZ</span>!</h2>
@@ -283,3 +285,49 @@ def send_confirmation_email(email, cart, order_details):
         logger.info(f'Email đã được gửi đến: {email}')
     except Exception as e:
         logger.error(f'Không thể gửi email đến {email}: {e}')
+
+
+from django.conf import settings
+from django.shortcuts import redirect, render
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+def create_checkout_session(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('cart_view')
+
+    line_items = []
+    for product_id, item in cart.items():
+        if isinstance(item, dict):
+            line_items.append({
+                'price_data': {
+                'currency': 'vnd',  # Đơn vị tiền là VND
+                'unit_amount': int(item['price']),  # Đơn giá (phải là số nguyên, ví dụ: 270097 VND)
+                'product_data': {
+                'name': item['name'],
+        },
+    },
+    'quantity': item['quantity'],
+})
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri('/success/'),
+        cancel_url=request.build_absolute_uri('/cancel/'),
+    )
+
+    return redirect(session.url, code=303)
+    
+
+def success(request):
+    return render(request, 'order_success.html')
+
+def cancel(request):
+    return render(request, 'payment/cancel.html')
+
+
+

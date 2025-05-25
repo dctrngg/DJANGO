@@ -1,11 +1,14 @@
 import os
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v7q-tm-lbuwi#+8t-(^_2ym)78b=c6n59i*wb0e2m4glfm5m35'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +41,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'my_website.urls'
+
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'pk_test_51RNRPKPcxDzDx167NZxBDZomshzvIEpfoVGMDlvemlJBgzsSmHXl8cGVvA3foLQs0btTiZmijBqwyIUbAKj7Ckkq00UI1v9q43')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_51RNRPKPcxDzDx167h13xDdFfY4qS2oZT1Cm5ryBq7y8vsat602KNPud4N7NyfnfnfJ6RmDogr8iU5sDKlfI1pjHb004kop9uni')
 
 TEMPLATES = [
     {
