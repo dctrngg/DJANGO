@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lịch sử mua hàng</h2>
+
+{% if orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày tạo</th>
+                <th>Địa chỉ giao hàng</th>
+                <th>Trạng thái</th>
+                <th>Tổng tiền</th>
+                <th>Phí ship</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.created_at|date:"d/m/Y H:i" }}</td>
+                <td>{{ order.shipping_address }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.total_amount }}₫</td>
+                <td>{{ order.shipping_cost }}₫</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Bạn chưa có đơn hàng nào.</p>
+{% endif %}
+
+{% endblock %}

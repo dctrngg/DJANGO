@@ -1,0 +1,16 @@
+# Database
+db.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env
+
+# Media / Upload files
+media/
+
+# VSCode
+.vscode/

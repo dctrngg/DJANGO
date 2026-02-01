@@ -5,7 +5,7 @@ from .views.signup import Signup
 from .views.login import Login, logout
 from .views.home import Detail, Index
 from .views.post import post_detail, post_list, video, aboutus, cart
-from .views.store import store, search, product_list, cart_view, add_to_cart, remove_from_cart, update_cart_quantity, create_order, order_success, create_checkout_session,success,cancel
+from .views.store import store, search, product_list, cart_view, add_to_cart, remove_from_cart, update_cart_quantity, create_order, order_success, create_checkout_session,success,cancel,order_history
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,6 +29,7 @@ urlpatterns = [
     path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<int:product_id>/', remove_from_cart, name='remove_from_cart'),
     path('update-cart-quantity/<int:product_id>/', update_cart_quantity, name='update_cart_quantity'),
+    path('order-history/',order_history, name='order_history'),
 
     # Password reset views
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),

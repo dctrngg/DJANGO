@@ -331,3 +331,38 @@ def cancel(request):
 
 
 
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def order_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'order_history.html', {'orders': orders})
+
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
+
+def send_order_status_email(email, order):
+    subject = f'Cập nhật trạng thái đơn hàng #{order.id}'
+    html_content = f"""
+    <p>Xin chào {order.user.username},</p>
+    <p>Trạng thái đơn hàng <strong>#{order.id}</strong> của bạn đã được cập nhật thành:</p>
+    <h3 style="color:green;">{order.status}</h3>
+    <p>Chúng tôi sẽ sớm giao hàng đến bạn. Cảm ơn bạn đã mua sắm!</p>
+    <br>
+    <p>Điện thoại XYZ</p>
+    """
+    text_content = strip_tags(html_content)
+
+    msg = EmailMultiAlternatives(
+        subject=subject,
+        body=text_content,
+        from_email='ductrungnguyen30@gmail.com',
+        to=[email]
+    )
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
+

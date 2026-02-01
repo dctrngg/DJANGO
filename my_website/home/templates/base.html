@@ -2,47 +2,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Include Bootstrap CSS -->
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
-<!-- Include Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="% static 'css/bootstrap.min.css' %}">
+    <!-- jQuery + Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet1.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
+
+    <!-- Font & Custom Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylesheet1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS để định vị iframe */
         .iframe-container {
             position: fixed;
-            bottom: 0; /* Đặt ở đáy trang */
+            bottom: 0;
             right: 20px;
-            width: 300px; /* Chiều rộng của iframe */
-            height: 500px; /* Chiều cao của iframe */
-            z-index: 1000; /* Đảm bảo iframe nằm trên các phần tử khác */
-            padding-bottom: 50px; /* Tạo khoảng cách lơ lửng */
+            width: 300px;
+            height: 500px;
+            z-index: 1000;
+            padding-bottom: 50px;
         }
-
         .iframe-container iframe {
-            margin-bottom: 50px; /* Tạo khoảng cách lơ lửng cho iframe */
+            margin-bottom: 50px;
             width: 100%;
             height: 100%;
-            border: none; /* Không có viền */
+            border: none;
         }
         .messenger-button {
             position: fixed;
@@ -61,110 +51,95 @@
         }
     </style>
 </head>
+
 <body>
-   <!--VÙNG CHỨA MENU-->
-    <nav class="navbar navbar-expand-md navbar-light bg-lignt fixed-top" style="background-color: rgb(115, 115, 115);">
-        <div class="container-fluid">
-            <button class="navbar-brand" href="../html/index.html" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" style="border: none; background-color: rgb(115, 115, 115);">
-            <img src="/static/images/quangminh.jpg" width="100px"></button>
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="background-color: rgb(115, 115, 115);">
+    <div class="container-fluid">
+        <button class="navbar-brand" href="/" style="border: none; background-color: rgb(115, 115, 115);">
+            <img src="{% static 'images/quangminh.jpg' %}" width="100px">
+        </button>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
-                    <a class="nav-link" href="/store"><li class="nav-item">Trang Chủ</li></a>
-                    <a class="nav-link" href="/aboutus"><li class="nav-item">Giới Thiệu</li></a>
-                    <a class="nav-link" href="/post"><li class="nav-item">Posts</li></a>
-                    <a class="nav-link" href="/video"><li class="nav-item">Videos</li></a>
-                </ul>
-                <form action="{% url 'search' %}" method="GET" class="d-flex">
-                    <input type="text" name="q" class="form-control me-2" placeholder="Tìm kiếm sản phẩm" aria-label="Search">
-                    <button class="btn btn-dark" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
-    <ul class=" navbar-nav my-2 my-lg-0">
-        <li class="nav-item active">
-            <a href="{% url 'cart_view' %}" class="nav-link">Giỏ Hàng
-                <span class="badge badge-success">
-                    {% if request.session.cart %}
-                        {{request.session.cart|length}}
-                    {% else %}
-                        0
-                    {% endif %}
-                </span>
-<!--                <span class="sr-only">(current)</span>-->
-            </a>
-        </li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        {% if request.session.customer %}
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/store">Trang Chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="/aboutus">Giới Thiệu</a></li>
+                <li class="nav-item"><a class="nav-link" href="/post">Posts</a></li>
+                <li class="nav-item"><a class="nav-link" href="/video">Videos</a></li>
+            </ul>
 
-<!--        <li class="nav-item active ">-->
-<!--          <a class="nav-link" href="/orders">Đơn hàng<span class="sr-only">(current)</span></a>-->
-<!--        </li>-->
-        <li class="nav-item active ">
-          <a class="nav-link" href="/logout">Đăng xuất<span class="sr-only">(current)</span></a>
-        </li>
-        {% else %}
+            <form action="{% url 'search' %}" method="GET" class="d-flex">
+                <input type="text" name="q" class="form-control me-2" placeholder="Tìm kiếm sản phẩm" aria-label="Search">
+                <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
+            </form>
 
-        <li class="nav-item active">
-          <a class="nav-link" href="/signup">Đăng ký<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/login">Đăng nhập<span class="sr-only">(current)</span></a>
-        </li>
-        {% endif %}
-      </ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                {% if user.is_authenticated %}
+    <li class="nav-item">
+        <a href="{% url 'cart_view' %}" class="nav-link">Giỏ Hàng
+            <span class="badge bg-success">
+                {{ request.session.cart|length|default:0 }}
+            </span>
+        </a>
+    </li>
+{% endif %}
+
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Xin chào, {{ user.get_full_name|default:user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Đăng xuất</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Đăng ký</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Đăng nhập</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<div class="footer mt-5">
+    <footer>
+        <div class="row p-4">
+            <div class="col-md-6">
+                <h3>Giới Thiệu:</h3>
+                <p>Chào mừng bạn đến với <b>quangminh.com</b> - nơi mua sắm trực tuyến tiện lợi các sản phẩm điện thoại di động chính hãng.</p>
+            </div>
+            <div class="col-md-6">
+                <h3>Liên Hệ:</h3>
+                <p><b><i class="fa fa-map-marker"></i> Địa chỉ:</b> 4D/5 Bình Chuẩn 34, Thuận An, Bình Dương</p>
+                <p><b><i class="fa fa-envelope"></i> Email:</b> quangminhpham1208@gmail.com</p>
+                <p><b><i class="fa fa-phone"></i> SĐT:</b> +84 903 600 989 / +84 379 209 568</p>
             </div>
         </div>
-    </nav>
-
-    {% block content %}{% endblock %}
-   <!--VÙNG CHỨA FOOTER VÀ CÁC POPUP KHÁC-->
-    <div class="footer" style="height: 50px;">
-        <footer>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="footer-contact">
-                        <h3>Giới Thiệu:</h3>
-                        <p>Chào mừng bạn đến với </span>
-                        <span><b>quangminh.com</b></span>
-                        <span>- nơi mang đến cho bạn trải nghiệm mua sắm trực tuyến độc đáo và tiện lợi. Chúng tôi tự hào là đối tác tin cậy của bạn trong việc chọn lựa sản phẩm điện thoại di động từ các thương hiệu hàng đầu trên thị trường.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="footer-contact">
-                        <h3>Liên Hệ:</h3>
-                        <p><b><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ: </b></span>
-                        <span>4D/5 Đường Bình Chuẩn 34, Phương Bình Chuẩn, Thành phố Thuận An, Tỉnh Bình Dương</p>
-                        <p><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b></span>
-                        <span>quangminhpham1208@gmail.com</p>
-                        <p><b><i class="fa fa-phone" aria-hidden="true"></i> Số điện thoại: </b></span>
-                        <span>+84 903 600 989; +84 379 209 568</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom" style="margin-top: -10px;">
-                <p style="text-align: center; font-size: 20px;">&copy; 2023 Bản quyền thuộc về </span>
-                <span><b style="font-size: 20px;">quangminh.com</b></span>
-                <span style="font-size: 20px;">&copy; Do not reup.</p>
-            </div>
-        </footer>
-    </div>
-     {% comment %} <div class="iframe-container">
-        <iframe src="https://chat.socialintents.com/c/chat-1734869696416" width="100%" style="height:100%;min-height:550px;" frameborder="0"></iframe> 
-    </div> {% endcomment %}
-    <a href="https://m.me/vitkonguu" class="messenger-button" target="_blank">💬 Chat with us</a>
-    <div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"
-    nonce="xyz">
-</script>
-
-<div class="fb-customerchat"
-    attribution="setup_tool"
-    page_id="61560601237697">
+        <div class="text-center py-3" style="background-color: #f0f0f0;">
+            &copy; 2023 <b>quangminh.com</b> - Do not reup.
+        </div>
+    </footer>
 </div>
+
+<a href="https://m.me/vitkonguu" class="messenger-button" target="_blank">💬 Chat with us</a>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"></script>
+<div class="fb-customerchat" attribution="setup_tool" page_id="61560601237697"></div>
+
+<!-- Optional JS -->
+<script src="{% static 'js/loginscript.js' %}"></script>
+<script src="{% static 'js/signupscript.js' %}"></script>
 </body>
-<script src="/static/js/loginscript.js"></script>
-<script src="/static/js/signupscript.js"></script>
 </html>
